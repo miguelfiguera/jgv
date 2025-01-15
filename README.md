@@ -8,7 +8,7 @@ Consta de los siguientes modelos:
 
 ```ruby
 Users
-
+t.integer "id"                 # clave primaria del modelo
 t.string :username            # Nombre de usuario
 t.string :email, null: false, unique: true  # Correo electrónico, no puede ser nulo, único
 t.string :digest_password     # Contraseña cifrada
@@ -19,7 +19,7 @@ t.timestamps                  # Marca de tiempo (created_at y updated_at)
 
 ```ruby
 Admins
-
+t.integer "id"                 # clave primaria del modelo
 t.string :email, null: false, unique: true  # Correo electrónico, no puede ser nulo, único
 t.string :digest_password     # Contraseña cifrada
 t.timestamps                  # Marca de tiempo (created_at y updated_at)
@@ -30,6 +30,7 @@ t.timestamps                  # Marca de tiempo (created_at y updated_at)
 ```ruby
 
 Profiles
+t.integer "id"                 # clave primaria del modelo
 t.string "name"                # Nombre
 t.string "lastname"            # Apellido
 t.string "address"             # Dirección
@@ -65,6 +66,7 @@ t.timestamps                   # Marca de tiempo (created_at y updated_at)
 ```ruby
 
 Items
+t.integer "id"                 # clave primaria del modelo
 
 t.string "item_name"           # Nombre del artículo
 t.decimal "price"              # Precio del artículo
@@ -79,11 +81,16 @@ t.timestamps                   # Marca de tiempo (created_at y updated_at)
 ```ruby
 
 Carts
+t.integer "id"                 # clave primaria del modelo
+t.integer "user_id"            # FK del modelo para la relacion "belongs_to"
+t.timestamps                   # Marca de tiempo (created_at y updated_at)
+
 ```
 
 ```ruby
 
 CartItems
+t.integer "id"                 # clave primaria del modelo
 t.integer "item_id"            # ID del artículo
 t.integer "cart_id"            # ID del carrito
 t.integer "quantity"           # Cantidad
@@ -94,6 +101,8 @@ t.timestamps                   # Marca de tiempo (created_at y updated_at), con 
 ```ruby
 
 Publications
+t.integer "id"                 # clave primaria del modelo
+
 t.integer 'user_id'            # ID del usuario
 t.string 'title'               # Título de la publicación
 t.string 'review'              # Revisión o contenido de la publicación
@@ -106,6 +115,8 @@ t.timestamps                   # Marca de tiempo (created_at y updated_at)
 
 ```ruby
 Posts
+t.integer "id"                 # clave primaria del modelo
+
 t.integer 'user_id'            # ID del usuario
 t.string 'title'               # Título del post
 t.string 'text'                # Texto del post
@@ -116,6 +127,8 @@ t.timestamps                   # Marca de tiempo (created_at y updated_at)
 ```ruby
 
 Comments
+t.integer "id"                 # clave primaria del modelo
+
 t.integer 'user_id'            # ID del usuario
 t.string 'text'                # Texto del comentario
 t.timestamps                   # Marca de tiempo (created_at y updated_at)
