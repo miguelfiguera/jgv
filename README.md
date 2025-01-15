@@ -6,6 +6,10 @@ Este es un proyecto backend principalmente. Y sera la version original de para e
 
 Consta de los siguientes modelos:
 
+#### Usuario
+
+Modelo para guardar inicios de sesion de los usuarios de la pagina.
+
 ```ruby
 Users
 t.integer "id"                 # clave primaria del modelo
@@ -17,6 +21,11 @@ t.timestamps                  # Marca de tiempo (created_at y updated_at)
 
 ```
 
+#### Admin
+
+Modelo de datos para labores administrativas, pagos, cuentas pendientes, aprobacion de publicaciones,
+aprobacion de archivos, moderacion de publicaciones y comentarios.
+
 ```ruby
 Admins
 t.integer "id"                 # clave primaria del modelo
@@ -26,6 +35,10 @@ t.timestamps                  # Marca de tiempo (created_at y updated_at)
 
 
 ```
+
+#### Profile
+
+Guardar data demografica del usuario.
 
 ```ruby
 
@@ -49,6 +62,11 @@ t.timestamps                   # Marca de tiempo (created_at y updated_at)
 
 ```
 
+#### Patios
+
+guardar espacios de entrenamiento de los usuarios que tengan un maestro (un usuario con esa categoria en su profile),
+y una direccion fisica.
+
 ```ruby
 
 Patios
@@ -62,6 +80,10 @@ t.integer :contact_email       # Correo electrónico de contacto (esto debería 
 t.timestamps                   # Marca de tiempo (created_at y updated_at)
 
 ```
+
+#### Items
+
+Items a la venta relacionados con el juego de garrote venezolano, pertenecientes a usuarios autorizados.
 
 ```ruby
 
@@ -78,6 +100,10 @@ t.timestamps                   # Marca de tiempo (created_at y updated_at)
 
 ```
 
+#### carts
+
+Carritos de compras, por usuario.
+
 ```ruby
 
 Carts
@@ -86,6 +112,10 @@ t.integer "user_id"            # FK del modelo para la relacion "belongs_to"
 t.timestamps                   # Marca de tiempo (created_at y updated_at)
 
 ```
+
+#### CartItems
+
+Join Table para colocar items en los carritos.
 
 ```ruby
 
@@ -98,12 +128,16 @@ t.timestamps                   # Marca de tiempo (created_at y updated_at), con 
 
 ```
 
+#### Publications
+
+Escritos, archivos, publicaciones, relacionadas con el juego de garrote.
+
 ```ruby
 
 Publications
 t.integer "id"                 # clave primaria del modelo
 
-t.integer 'user_id'            # ID del usuario
+t.integer 'admin_id'            # ID del admin
 t.string 'title'               # Título de la publicación
 t.string 'review'              # Revisión o contenido de la publicación
 t.string 'original_url'        # URL original
@@ -112,6 +146,10 @@ t.timestamps                   # Marca de tiempo (created_at y updated_at)
 
 
 ```
+
+#### Posts
+
+blog posts de los usuarios.
 
 ```ruby
 Posts
@@ -123,6 +161,10 @@ t.string 'text'                # Texto del post
 t.timestamps                   # Marca de tiempo (created_at y updated_at)
 
 ```
+
+#### Comments
+
+comentarios de los posts de los usuarios.
 
 ```ruby
 
