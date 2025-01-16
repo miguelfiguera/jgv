@@ -56,6 +56,7 @@ t.string "zipcode"             # Código postal
 t.string "phone"               # Teléfono
 t.string "email"               # Correo electrónico
 t.string "style"               # Estilo
+t.references "user_id"         # ID del usuario (foreing key)
 t.references "master", optional: true, foreign_key: { to_table: :users }  # Referencia opcional a un usuario maestro
 t.timestamps                   # Marca de tiempo (created_at y updated_at)
 
@@ -70,7 +71,7 @@ y una direccion fisica.
 ```ruby
 
 Patios
-t.integer :master_id           # ID del maestro
+t.integer :master_id           # ID del maestro (foreing key)
 t.integer :id                  # ID del patio
 t.integer :name                # Nombre del patio (esto debería ser string en vez de integer)
 t.integer :address             # Dirección (esto debería ser string en vez de integer)
@@ -92,9 +93,8 @@ t.integer "id"                 # clave primaria del modelo
 
 t.string "item_name"           # Nombre del artículo
 t.decimal "price"              # Precio del artículo
-t.references "user", foreign_key: true  # Referencia a usuario, clave foránea
+t.references "user", foreign_key: true  # Referencia a usuario, clave foránea (foreing key)
 t.integer "quantity"           # Cantidad
-t.integer "user_id"            # ID del usuario (redundante si ya usas `t.references "user"`)
 t.timestamps                   # Marca de tiempo (created_at y updated_at)
 
 
@@ -108,7 +108,7 @@ Carritos de compras, por usuario.
 
 Carts
 t.integer "id"                 # clave primaria del modelo
-t.integer "user_id"            # FK del modelo para la relacion "belongs_to"
+t.integer "user_id"            # FK del modelo para la relacion "belongs_to" (foreing key)
 t.timestamps                   # Marca de tiempo (created_at y updated_at)
 
 ```
@@ -121,10 +121,11 @@ Join Table para colocar items en los carritos.
 
 CartItems
 t.integer "id"                 # clave primaria del modelo
-t.integer "item_id"            # ID del artículo
-t.integer "cart_id"            # ID del carrito
+t.integer "item_id"            # ID del artículo (foreing key)
+t.integer "cart_id"            # ID del carrito (foreing key)
 t.integer "quantity"           # Cantidad
 t.timestamps                   # Marca de tiempo (created_at y updated_at), con un pequeño error tipográfico en `timestampts`
+t.integer "status"             # enum for pending, payed
 
 ```
 
@@ -136,8 +137,7 @@ Escritos, archivos, publicaciones, relacionadas con el juego de garrote.
 
 Publications
 t.integer "id"                 # clave primaria del modelo
-
-t.integer 'admin_id'            # ID del admin
+t.integer 'admin_id'            # clave foranea del modelo admin
 t.string 'title'               # Título de la publicación
 t.string 'review'              # Revisión o contenido de la publicación
 t.string 'original_url'        # URL original
@@ -154,8 +154,7 @@ blog posts de los usuarios.
 ```ruby
 Posts
 t.integer "id"                 # clave primaria del modelo
-
-t.integer 'user_id'            # ID del usuario
+t.integer 'user_id'            # clave foranea del modelo usuario
 t.string 'title'               # Título del post
 t.string 'text'                # Texto del post
 t.timestamps                   # Marca de tiempo (created_at y updated_at)
@@ -170,9 +169,23 @@ comentarios de los posts de los usuarios.
 
 Comments
 t.integer "id"                 # clave primaria del modelo
-
-t.integer 'user_id'            # ID del usuario
+t.integer 'user_id'            # clave foranea del modelo usuario
 t.string 'text'                # Texto del comentario
+t.integer "post_id"            # clave foranea del modelo posts
 t.timestamps                   # Marca de tiempo (created_at y updated_at)
 
 ```
+
+#### CheckOutBills
+
+```ruby
+t.integer 'id'                 # clave primaria del modelo
+t.integer "cart_id"            # clave foranea del modelo Carts.
+t.float "amount"               # monto total del precio.
+t.integer "status"             # status (enum) para pending, payed, canceled, error
+t.timestamps                   # Marca de tiempo (created_at y updated_at)
+```
+
+### Diagrama Entidad-Relacion
+
+![Diagrama](juegodegarrotevenezolano.png)
